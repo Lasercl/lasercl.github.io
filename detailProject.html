@@ -1,411 +1,288 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Detail - Laser Clauss L</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Moderustic:wght@300..800&display=swap"
-      rel="stylesheet"
-    />
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="./public/css/MainPage.css" />
-    <style></style>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/c9663cd471.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: { sans: ['Outfit', 'sans-serif'] },
+            colors: { primary: '#6d28d9', secondary: '#1e1b4b' }
+          }
+        }
+      }
+    </script>
 
-    <title>Details Project</title>
+    <style>
+      body { margin: 0; overflow-x: hidden; background-color: #000; color: #fff; }
+      #bg { position: fixed; top: 0; left: 0; z-index: -1; width: 100vw; height: 100vh; }
+      .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); }
+      .glass-card { background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 1.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
+      .glass-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px -10px rgba(109, 40, 217, 0.5); border-color: rgba(109, 40, 217, 0.5); }
+      .glow-text { text-shadow: 0 0 20px rgba(109, 40, 217, 0.8); }
+      ::-webkit-scrollbar { width: 8px; }
+      ::-webkit-scrollbar-track { background: #000; }
+      ::-webkit-scrollbar-thumb { background: #6d28d9; border-radius: 4px; }
+      ::-webkit-scrollbar-thumb:hover { background: #8b5cf6; }
+
+      /* Other Projects Styling Overrides */
+      #otherProjectDetail > div {
+        background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%) !important;
+        backdrop-filter: blur(20px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 1rem !important;
+        padding: 1rem !important;
+        transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+      }
+      #otherProjectDetail > div:hover {
+        transform: translateY(-5px) !important;
+        box-shadow: 0 10px 30px -10px rgba(109, 40, 217, 0.5) !important;
+        border-color: rgba(109, 40, 217, 0.5) !important;
+      }
+      #otherProjectDetail img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 0.75rem;
+      }
+    </style>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+      }
+    </script>
   </head>
-  <body>
-    <div class="flex-detail-project">
-      <div data-v-f7f3bbd8="" bis_skin_checked="1">
-        <div data-v-f7f3bbd8="" bis_skin_checked="1">
-          <div
-            data-v-f7f3bbd8=""
-            class="flex justify-between items-center"
-            bis_skin_checked="1"
-          >
-            <div data-v-f7f3bbd8="" bis_skin_checked="1">
-              <p
-                id="titleDetail"
-                data-v-f7f3bbd8=""
-                class="font-general-medium text-left text-3xl sm:text-4xl font-bold text-primary-dark dark:text-primary-light mt-14 sm:mt-20 mb-7"
-              >
-                halo
-              </p>
-            </div>
-            <div
-              data-v-f7f3bbd8=""
-              class="mt-14 sm:mt-20 mb-7"
-              bis_skin_checked="1"
-            >
-              <button
-                id="shareBtn"
-                data-v-f7f3bbd8=""
-                type="button"
-                aria-label="Share"
-                class="px-4 py-2.5 text-white tracking-wider bg-indigo-500 hover:bg-indigo-600 focus:ring-1 focus:ring-indigo-900 rounded-lg duration-500"
-              >
-                <svg
-                  data-v-f7f3bbd8=""
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24px"
-                  height="24px"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="w-4 lg:w-5 h-4 lg:h-5 feather feather-share-2"
-                >
-                  <circle data-v-f7f3bbd8="" cx="18" cy="5" r="3"></circle>
-                  <circle data-v-f7f3bbd8="" cx="6" cy="12" r="3"></circle>
-                  <circle data-v-f7f3bbd8="" cx="18" cy="19" r="3"></circle>
-                  <line
-                    data-v-f7f3bbd8=""
-                    x1="8.59"
-                    y1="13.51"
-                    x2="15.42"
-                    y2="17.49"
-                  ></line>
-                  <line
-                    data-v-f7f3bbd8=""
-                    x1="15.41"
-                    y1="6.51"
-                    x2="8.59"
-                    y2="10.49"
-                  ></line>
-                </svg>
-              </button>
-            </div>
-          </div>
-          <div data-v-f7f3bbd8="" class="flex" bis_skin_checked="1">
-            <div
-              data-v-f7f3bbd8=""
-              class="flex items-center mr-10"
-              bis_skin_checked="1"
-            >
-              <svg
-                data-v-f7f3bbd8=""
-                xmlns="http://www.w3.org/2000/svg"
-                width="24px"
-                height="24px"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="w-4 h-4 text-ternary-dark dark:text-ternary-light feather feather-clock"
-              >
-                <circle data-v-f7f3bbd8="" cx="12" cy="12" r="10"></circle>
-                <polyline
-                  data-v-f7f3bbd8=""
-                  points="12 6 12 12 16 14"
-                ></polyline>
-              </svg>
-              <span
-                id="dateDetail"
-                data-v-f7f3bbd8=""
-                class="font-general-medium ml-2 leading-none text-primary-dark dark:text-primary-light"
-                >-</span
-              >
-            </div>
-            <div
-              data-v-f7f3bbd8=""
-              class="flex items-center"
-              bis_skin_checked="1"
-            >
-              <svg
-                data-v-f7f3bbd8=""
-                xmlns="http://www.w3.org/2000/svg"
-                width="24px"
-                height="24px"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="w-4 h-4 text-ternary-dark dark:text-ternary-light feather feather-tag"
-              >
-                <path
-                  data-v-f7f3bbd8=""
-                  d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"
-                ></path>
-                <line data-v-f7f3bbd8="" x1="7" y1="7" x2="7.01" y2="7"></line>
-              </svg>
-              <span
-                id="categoryDetail"
-                data-v-f7f3bbd8=""
-                class="font-general-medium ml-2 leading-none text-primary-dark dark:text-primary-light"
-                >Web / Frontend</span
-              >
-            </div>
-          </div>
-        </div>
-        <div
-          data-v-f7f3bbd8=""
-          class="grid grid-cols-1 sm:grid-cols-3 sm:gap-10 mt-12"
-          bis_skin_checked="1"
-        >
-          <div data-v-f7f3bbd8="" class="mb-10 sm:mb-0" bis_skin_checked="1">
-            <div
-              data-v-74c9692d=""
-              data-v-f7f3bbd8=""
-              class="enlargeable-image"
-              bis_skin_checked="1"
-            >
-              <div class="slot">
-                <img
-                  id="picture1"
-                  src="./assets/images/loginPerfofit.png"
-                  class="rounded-xl cursor-pointer shadow-lg"
-                  onclick="zoomImage(this.src)"
-                />
-              </div>
+  <body class="antialiased selection:bg-primary selection:text-white flex flex-col min-h-screen">
+    <canvas id="bg"></canvas>
 
-              <!-- Overlay dengan animasi -->
-              <div
-                id="overlay"
-                class="hidden fixed inset-0 bg-black/70 flex items-center justify-center transition-opacity duration-700 opacity-0"
-              >
-                <img
-                  id="overlayImg"
-                  class="max-w-[90%] max-h-[90%] rounded-xl shadow-lg transform scale-90 transition-transform duration-700"
-                />
-              </div>
-            </div>
-          </div>
-          <div data-v-f7f3bbd8="" class="mb-10 sm:mb-0" bis_skin_checked="1">
-            <div
-              data-v-74c9692d=""
-              data-v-f7f3bbd8=""
-              class="enlargeable-image"
-              bis_skin_checked="1"
-            >
-              <div class="slot">
-                <img
-                  id="picture2"
-                  src="./assets/images/loginPerfofit.png"
-                  class="rounded-xl cursor-pointer shadow-lg"
-                  onclick="zoomImage(this.src)"
-                />
-              </div>
-
-              <!-- Overlay dengan animasi -->
-              <div
-                id="overlay"
-                class="hidden fixed inset-0 bg-black/70 flex items-center justify-center transition-opacity duration-700 opacity-0"
-              >
-                <img
-                  id="overlayImg"
-                  class="max-w-[90%] max-h-[90%] rounded-xl shadow-lg transform scale-90 transition-transform duration-700"
-                />
-              </div>
-            </div>
-          </div>
-          <div data-v-f7f3bbd8="" class="mb-10 sm:mb-0" bis_skin_checked="1">
-            <div
-              data-v-74c9692d=""
-              data-v-f7f3bbd8=""
-              class="enlargeable-image"
-              bis_skin_checked="1"
-            >
-              <div class="slot">
-                <img
-                  id="picture3"
-                  src="./assets/images/loginPerfofit.png"
-                  class="rounded-xl cursor-pointer shadow-lg"
-                  onclick="zoomImage(this.src)"
-                />
-              </div>
-
-              <!-- Overlay dengan animasi -->
-              <div
-                id="overlay"
-                class="hidden fixed inset-0 bg-black/70 flex items-center justify-center transition-opacity duration-700 opacity-0"
-              >
-                <img
-                  id="overlayImg"
-                  class="max-w-[90%] max-h-[90%] rounded-xl shadow-lg transform scale-90 transition-transform duration-700"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          data-v-f7f3bbd8=""
-          class="block sm:flex gap-0 sm:gap-10 mt-14"
-          bis_skin_checked="1"
-        >
-          <div
-            data-v-f7f3bbd8=""
-            class="w-full sm:w-1/3 text-left"
-            bis_skin_checked="1"
-          >
-            <div data-v-f7f3bbd8="" class="mb-7" bis_skin_checked="1">
-              <p
-                data-v-f7f3bbd8=""
-                class="font-general-medium text-2xl text-secondary-dark dark:text-secondary-light mb-2"
-              >
-                About Client
-              </p>
-              <ul data-v-f7f3bbd8="" class="leading-loose" id="clientDetail">
-                <li
-                  data-v-f7f3bbd8=""
-                  class="font-general-regular text-ternary-dark dark:text-ternary-light"
-                >
-                  <span data-v-f7f3bbd8="">Dicoding Indonesia</span>
-                </li>
-                <li
-                  data-v-f7f3bbd8=""
-                  class="font-general-regular text-ternary-dark dark:text-ternary-light"
-                >
-                  <span data-v-f7f3bbd8=""
-                    >Belajar Fundamental Front-End Web Development Course</span
-                  >
-                </li>
-              </ul>
-            </div>
-            <div data-v-f7f3bbd8="" class="mb-7" bis_skin_checked="1">
-              <p
-                data-v-f7f3bbd8=""
-                class="font-general-medium text-2xl text-ternary-dark dark:text-ternary-light mb-2"
-              >
-                Objective
-              </p>
-              <p
-                id="objectiveDetail"
-                data-v-f7f3bbd8=""
-                class="font-general-regular text-primary-dark dark:text-ternary-light"
-              >
-                Build Restaurant Progressive Web Applications + Testing and
-                Optimized
-              </p>
-            </div>
-            <div data-v-f7f3bbd8="" class="mb-7" bis_skin_checked="1">
-              <p
-                data-v-f7f3bbd8=""
-                class="font-general-medium text-2xl text-ternary-dark dark:text-ternary-light mb-2"
-              >
-                Tools &amp; Technologies
-              </p>
-              <p
-                id="toolsDetail"
-                data-v-f7f3bbd8=""
-                class="font-general-regular text-primary-dark dark:text-ternary-light"
-              >
-                HTML, CSS, JavaScript, Node.JS
-              </p>
-            </div>
-            <div data-v-f7f3bbd8="" bis_skin_checked="1">
-              <p
-                data-v-f7f3bbd8=""
-                class="font-general-medium text-2xl text-ternary-dark dark:text-ternary-light mb-2"
-              >
-                Links
-              </p>
-              <div
-                id="linkContainer"
-                data-v-f7f3bbd8=""
-                class="flex items-center gap-2"
-                bis_skin_checked="1"
-              >
-                <a
-                  data-v-f7f3bbd8=""
-                  href="https://restopedia-chi.vercel.app/"
-                  target="__blank"
-                  aria-label="Share Project"
-                  class="px-4 sm:px-6 py-2 bg-gray-600 text-primary-light hover:bg-ternary-dark dark:bg-gray-200 dark:text-secondary-dark dark:hover:bg-primary-light rounded-md focus:ring-1 focus:ring-indigo-900 duration-500"
-                  >Demo</a
-                >
-              </div>
-            </div>
-          </div>
-          <div
-            data-v-f7f3bbd8=""
-            class="w-full sm:w-2/3 text-left mt-10 sm:mt-0"
-            bis_skin_checked="1"
-          >
-            <p
-              data-v-f7f3bbd8=""
-              class="font-general-medium text-primary-dark dark:text-primary-light text-2xl font-bold mb-7"
-            >
-              Details
-            </p>
-            <p
-              id="detail"
-              data-v-f7f3bbd8=""
-              class="font-general-regular mb-5 text-lg text-ternary-dark dark:text-ternary-light"
-            >
-              Restopedia is a A website to find recommended restaurant easy and
-              fast. This website is submission for Dicoding's Course.
-            </p>
-          </div>
-        </div>
-        <div
-          data-v-f7f3bbd8=""
-          class="mt-10 pt-10 sm:pt-14 sm:mt-20 border-t-2 border-primary-light dark:border-secondary-dark"
-          bis_skin_checked="1"
-        >
-          <p
-            class="font-general-regular text-primary-dark dark:text-primary-light text-3xl font-bold mb-10 sm:mb-14 text-left"
-          >
-            Other Projects
-          </p>
-          <div
-            id="otherProjectDetail"
-            class="grid grid-cols-1 sm:grid-cols-4 gap-10"
-            bis_skin_checked="1"
-          >
-            <div bis_skin_checked="1">
-              <a href="/projects/14" class=""
-                ><img
-                  src="/project-images/travelicious-thumb.webp"
-                  alt="Travelicious"
-                  class="rounded-xl cursor-pointer"
-              /></a>
-            </div>
-            <div bis_skin_checked="1">
-              <a href="/projects/7" class=""
-                ><img
-                  src="/project-images/chen-buffet-thumb.webp"
-                  alt="Chen Buffet"
-                  class="rounded-xl cursor-pointer"
-              /></a>
-            </div>
-            <div bis_skin_checked="1">
-              <a href="/projects/11" class=""
-                ><img
-                  src="/project-images/phinterest-thumb.webp"
-                  alt="PHinterest"
-                  class="rounded-xl cursor-pointer"
-              /></a>
-            </div>
-            <div bis_skin_checked="1">
-              <a href="/projects/18" class=""
-                ><img
-                  src="/project-images/secret-formula-thumb.webp"
-                  alt="Secret Formula"
-                  class="rounded-xl cursor-pointer"
-              /></a>
-            </div>
-          </div>
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 glass transition-all duration-300" id="navbar">
+      <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <a href="./index.html" class="text-2xl font-bold tracking-wider text-white glow-text">LCL</a>
+        <div class="hidden md:flex space-x-8 items-center">
+          <a href="./index.html" class="text-gray-300 hover:text-white transition-colors">Home</a>
+          <a href="./project.html" class="text-gray-300 hover:text-white transition-colors">Projects</a>
+          <a href="./contact.html" class="text-gray-300 hover:text-white transition-colors">Contact</a>
         </div>
       </div>
-    </div>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    </nav>
 
+    <!-- Main Content -->
+    <main class="relative z-10 flex-1 pt-32 px-6 pb-20 max-w-7xl mx-auto w-full">
+      
+      <!-- Header Section -->
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6">
+        <div>
+          <h1 id="titleDetail" class="text-4xl md:text-5xl font-bold glow-text mb-4 text-white">Loading...</h1>
+          <div class="flex flex-wrap items-center gap-6 text-gray-400">
+            <div class="flex items-center gap-2">
+              <i class="fa-regular fa-clock text-primary"></i>
+              <span id="dateDetail">-</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-tag text-primary"></i>
+              <span id="categoryDetail">-</span>
+            </div>
+          </div>
+        </div>
+        <button id="shareBtn" class="px-5 py-2.5 bg-white/10 hover:bg-primary text-white rounded-xl transition-all flex items-center gap-2 border border-white/20">
+          <i class="fa-solid fa-share-nodes"></i> Share
+        </button>
+      </div>
+
+      <!-- Image Gallery -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+        <div class="glass-card p-3 overflow-hidden group">
+          <img id="picture1" src="" class="w-full h-64 object-cover rounded-xl cursor-pointer transform group-hover:scale-105 transition-transform duration-500" onclick="zoomImage(this.src)" alt="Project Screenshot 1" onerror="this.style.display='none'"/>
+        </div>
+        <div class="glass-card p-3 overflow-hidden group">
+          <img id="picture2" src="" class="w-full h-64 object-cover rounded-xl cursor-pointer transform group-hover:scale-105 transition-transform duration-500" onclick="zoomImage(this.src)" alt="Project Screenshot 2" onerror="this.style.display='none'"/>
+        </div>
+        <div class="glass-card p-3 overflow-hidden group">
+          <img id="picture3" src="" class="w-full h-64 object-cover rounded-xl cursor-pointer transform group-hover:scale-105 transition-transform duration-500" onclick="zoomImage(this.src)" alt="Project Screenshot 3" onerror="this.style.display='none'"/>
+        </div>
+      </div>
+
+      <!-- Info & Details Section -->
+      <div class="flex flex-col lg:flex-row gap-12 mb-20">
+        
+        <!-- Sidebar Info -->
+        <div class="lg:w-1/3 space-y-8 glass-card p-8 h-fit">
+          <div>
+            <h3 class="text-xl font-bold text-white mb-4 border-b border-white/10 pb-2">About Client</h3>
+            <ul id="clientDetail" class="text-gray-300 space-y-2">
+              <!-- JS Populates -->
+            </ul>
+          </div>
+          
+          <div>
+            <h3 class="text-xl font-bold text-white mb-4 border-b border-white/10 pb-2">Objective</h3>
+            <p id="objectiveDetail" class="text-gray-300 leading-relaxed"></p>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold text-white mb-4 border-b border-white/10 pb-2">Tools & Technologies</h3>
+            <p id="toolsDetail" class="text-primary font-medium"></p>
+          </div>
+
+          <div>
+            <h3 class="text-xl font-bold text-white mb-4 border-b border-white/10 pb-2">Links</h3>
+            <div id="linkContainer" class="flex flex-wrap gap-3">
+              <!-- JS Populates Buttons -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Details -->
+        <div class="lg:w-2/3">
+          <h2 class="text-3xl font-bold mb-6 text-white glow-text-subtle">Project Details</h2>
+          <div id="detail" class="text-gray-300 text-lg leading-relaxed whitespace-pre-line glass p-8 rounded-2xl border border-white/10">
+            <!-- JS Populates -->
+          </div>
+        </div>
+        
+      </div>
+
+      <!-- Other Projects -->
+      <div class="border-t border-white/10 pt-16">
+        <h2 class="text-3xl font-bold mb-10 text-white text-center">Other Projects</h2>
+        <div id="otherProjectDetail" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- JS Populates -->
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Overlay for Zoomed Image -->
+    <div id="overlay" class="hidden fixed inset-0 bg-black/90 z-[100] flex items-center justify-center transition-opacity duration-300 opacity-0 cursor-pointer" onclick="closeZoom()">
+      <img id="overlayImg" class="max-w-[90%] max-h-[90%] rounded-xl shadow-2xl transform scale-95 transition-transform duration-300" />
+      <button class="absolute top-6 right-6 text-white text-4xl hover:text-primary transition-colors"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <!-- Three.js Setup -->
+    <script type="module">
+      import * as THREE from 'three';
+      const canvas = document.querySelector('#bg');
+      const scene = new THREE.Scene();
+      scene.fog = new THREE.FogExp2(0x000000, 0.001);
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      camera.position.z = 30;
+
+      const group = new THREE.Group();
+      scene.add(group);
+
+      const particleGeometry = new THREE.BufferGeometry();
+      const particleCount = 2000;
+      const posArray = new Float32Array(particleCount * 3);
+      for(let i=0; i < particleCount * 3; i++) {
+        posArray[i] = (Math.random() - 0.5) * 150;
+      }
+      particleGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+      const particleMaterial = new THREE.PointsMaterial({ size: 0.2, color: 0x8b5cf6, transparent: true, opacity: 0.8, blending: THREE.AdditiveBlending });
+      const particlesMesh = new THREE.Points(particleGeometry, particleMaterial);
+      group.add(particlesMesh);
+
+      const torus = new THREE.Mesh(
+        new THREE.TorusKnotGeometry(10, 3, 100, 16),
+        new THREE.MeshBasicMaterial({ color: 0x6d28d9, wireframe: true, transparent: true, opacity: 0.15 })
+      );
+      torus.position.set(20, 0, -20);
+      group.add(torus);
+
+      const torus2 = new THREE.Mesh(
+        new THREE.TorusKnotGeometry(8, 2, 80, 16),
+        new THREE.MeshBasicMaterial({ color: 0x4c1d95, wireframe: true, transparent: true, opacity: 0.1 })
+      );
+      torus2.position.set(-25, 10, -30);
+      group.add(torus2);
+
+      let mouseX = 0; let mouseY = 0; let targetX = 0; let targetY = 0;
+      const windowHalfX = window.innerWidth / 2; const windowHalfY = window.innerHeight / 2;
+      document.addEventListener('mousemove', (event) => { mouseX = (event.clientX - windowHalfX); mouseY = (event.clientY - windowHalfY); });
+
+      const clock = new THREE.Clock();
+      function animate() {
+        requestAnimationFrame(animate);
+        const elapsedTime = clock.getElapsedTime();
+        group.rotation.y = elapsedTime * 0.05;
+        torus.rotation.x += 0.005; torus.rotation.y += 0.005;
+        torus2.rotation.x -= 0.003; torus2.rotation.z += 0.004;
+        targetX = mouseX * 0.001; targetY = mouseY * 0.001;
+        particlesMesh.rotation.y += 0.05 * (targetX - particlesMesh.rotation.y);
+        particlesMesh.rotation.x += 0.05 * (targetY - particlesMesh.rotation.x);
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    </script>
+
+    <!-- Overlay logic for Zoom Image -->
+    <script>
+      function zoomImage(src) {
+        const overlay = document.getElementById('overlay');
+        const overlayImg = document.getElementById('overlayImg');
+        overlayImg.src = src;
+        overlay.classList.remove('hidden');
+        // Small delay to allow display:block to apply before opacity transition
+        setTimeout(() => {
+          overlay.classList.remove('opacity-0');
+          overlayImg.classList.remove('scale-95');
+          overlayImg.classList.add('scale-100');
+        }, 10);
+      }
+      function closeZoom() {
+        const overlay = document.getElementById('overlay');
+        const overlayImg = document.getElementById('overlayImg');
+        overlay.classList.add('opacity-0');
+        overlayImg.classList.remove('scale-100');
+        overlayImg.classList.add('scale-95');
+        setTimeout(() => {
+          overlay.classList.add('hidden');
+        }, 300); // match duration
+      }
+    </script>
+    
+    <!-- External Dependencies and Logic -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="./public/js/data.js"></script>
+    
+    <!-- Add global style override for JS populated links -->
+    <style>
+      #linkContainer a {
+        background: rgba(109, 40, 217, 0.8) !important;
+        color: white !important;
+        padding: 0.5rem 1.5rem !important;
+        border-radius: 0.75rem !important;
+        text-decoration: none !important;
+        transition: background 0.3s ease, transform 0.2s ease !important;
+        font-weight: 500 !important;
+      }
+      #linkContainer a:hover {
+        background: rgba(109, 40, 217, 1) !important;
+        transform: translateY(-2px) !important;
+      }
+    </style>
+    
     <script src="./public/js/detailProject.js"></script>
   </body>
 </html>

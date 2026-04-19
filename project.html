@@ -1,117 +1,223 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Projects - Laser Clauss L</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Moderustic:wght@300..800&display=swap"
-      rel="stylesheet"
-    />
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="./public/css/MainPage.css" />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/c9663cd471.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: { sans: ['Outfit', 'sans-serif'] },
+            colors: { primary: '#6d28d9', secondary: '#1e1b4b' }
+          }
+        }
+      }
+    </script>
 
-    <title>Project</title>
+    <style>
+      body { margin: 0; overflow-x: hidden; background-color: #000; color: #fff; }
+      #bg { position: fixed; top: 0; left: 0; z-index: -1; width: 100vw; height: 100vh; }
+      .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); }
+      .glass-card { background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 1.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; cursor: pointer; }
+      .glass-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px -10px rgba(109, 40, 217, 0.5); border-color: rgba(109, 40, 217, 0.5); }
+      .glow-text { text-shadow: 0 0 20px rgba(109, 40, 217, 0.8); }
+      ::-webkit-scrollbar { width: 8px; }
+      ::-webkit-scrollbar-track { background: #000; }
+      ::-webkit-scrollbar-thumb { background: #6d28d9; border-radius: 4px; }
+      ::-webkit-scrollbar-thumb:hover { background: #8b5cf6; }
+      
+      /* Input overrides for dark glass theme */
+      input[type="search"], select {
+        background: rgba(0,0,0,0.3) !important;
+        color: white !important;
+        border: 1px solid rgba(255,255,255,0.2) !important;
+      }
+      input[type="search"]::placeholder { color: rgba(255,255,255,0.5); }
+      select option { background: #1e1b4b; color: white; }
+    </style>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+      }
+    </script>
   </head>
-  <body>
-    <div id="project">
-      <h2>Project</h2>
-      <div
-        id="searchBar"
-        data-v-6111f714=""
-        class="flex flex-col sm:flex-row justify-between border-primary-light dark:border-secondary-dark pb-0 gap-2"
-        bis_skin_checked="1"
-      >
-        <div
-          data-v-6111f714=""
-          class="flex justify-between gap-2"
-          bis_skin_checked="1"
-        >
-          <span
-            data-v-6111f714=""
-            class="block bg-primary-light dark:bg-ternary-dark p-2.5 shadow-sm rounded-xl cursor-pointer border-1 border-gray-200"
-          >
-            <img
-              src="./assets/images/search-interface-symbol.png"
-              style="width: 2rem"
-              alt=""
-            />
-          </span>
-          <input
-            data-v-6111f714=""
-            id="query"
-            name="query"
-            type="search"
-            required="required"
-            placeholder="Search Projects"
-            aria-label="Name"
-            class="font-general-medium pl-3 pr-1 sm:px-4 py-2 w-full border-1 border-gray-200 dark:border-secondary-dark rounded-lg text-sm sm:text-md bg-secondary-light dark:bg-ternary-dark text-primary-dark dark:text-ternary-light"
-          />
-        </div>
-        <select
-          data-v-76f77b12=""
-          data-v-6111f714=""
-          name="projects"
-          id="projects"
-          aria-label="Project Filter"
-          class="font-general-medium px-4 py-2 border-1 border-gray-200 dark:border-secondary-dark rounded-lg text-sm sm:text-md bg-secondary-light dark:bg-ternary-dark text-primary-dark dark:text-ternary-light"
-        >
-          <option data-v-76f77b12="" value="" class="text-sm sm:text-md">
-            All Projects
-          </option>
-          <option data-v-76f77b12="" class="sm:text-md" value="Web Application">
-            Web Application
-          </option>
-          <option
-            data-v-76f77b12=""
-            class="sm:text-md"
-            value="Desktop Application"
-          >
-            Desktop Application
-          </option>
-          <option
-            data-v-76f77b12=""
-            class="sm:text-md"
-            value="Mobile Application"
-          >
-            Mobile Application
-          </option>
-          <option data-v-76f77b12="" class="sm:text-md" value="UI/UX Design">
-            UI/UX Design
-          </option>
-        </select>
-      </div>
+  <body class="antialiased selection:bg-primary selection:text-white flex flex-col min-h-screen">
+    <canvas id="bg"></canvas>
 
-      <div id="container-flex" class="mt-5">
-        <!-- <div
-          class="p-4"
-          id="movieproject"
-          onclick="window.location.href='https://github.com/Lasercl/Back-end-PROJECT'"
-        >
-          <h3>
-            <a class="fs-5" href="https://github.com/Lasercl/Back-end-PROJECT"
-              >MakeUpzzz Back End</a
-            >
-          </h3>
-          <img
-            src="./assets/images/makeupzz.png"
-            width="250px"
-            height="150px"
-            alt="The highlight picture about my favorite film"
-          />
-        </div> -->
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 glass transition-all duration-300" id="navbar">
+      <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <a href="./index.html" class="text-2xl font-bold tracking-wider text-white glow-text">LCL</a>
+        <div class="hidden md:flex space-x-8 items-center">
+          <a href="./index.html" class="text-gray-300 hover:text-white transition-colors">Home</a>
+          <a href="./project.html" class="text-white font-medium transition-colors">Projects</a>
+          <a href="./contact.html" class="text-gray-300 hover:text-white transition-colors">Contact</a>
+        </div>
       </div>
-    </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="relative z-10 flex-1 pt-32 px-6 pb-20">
+      <div class="max-w-7xl mx-auto" id="project">
+        <h1 class="text-4xl md:text-6xl font-bold glow-text mb-10 text-center">My Projects</h1>
+        
+        <!-- Search and Filter Bar -->
+        <div id="searchBar" class="flex flex-col sm:flex-row justify-between items-center gap-4 mb-12 glass p-4 rounded-2xl">
+          <div class="flex w-full sm:w-1/2 items-center gap-3">
+            <span class="p-3 bg-white/10 rounded-xl flex items-center justify-center">
+              <i class="fa-solid fa-search text-gray-300"></i>
+            </span>
+            <input
+              id="query"
+              name="query"
+              type="search"
+              required="required"
+              placeholder="Search Projects"
+              aria-label="Name"
+              class="w-full px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition-all"
+            />
+          </div>
+          <select
+            name="projects"
+            id="projects"
+            aria-label="Project Filter"
+            class="w-full sm:w-1/3 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary transition-all appearance-none cursor-pointer"
+          >
+            <option value="">All Projects</option>
+            <option value="Web Application">Web Application</option>
+            <option value="Desktop Application">Desktop Application</option>
+            <option value="Mobile Application">Mobile Application</option>
+            <option value="UI/UX Design">UI/UX Design</option>
+          </select>
+        </div>
+
+        <!-- Projects Grid -->
+        <!-- The JS expects container-flex, it inserts HTML inside here.
+             We'll add grid classes so the inserted elements flow nicely, 
+             assuming the JS injects divs. If JS injects unstyled divs, they will adopt the grid. 
+             If JS injects specific classes (like p-4, max-w-300), we'll try to let them render or we can override. -->
+        <div id="container-flex" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          <!-- Dynamically populated by JS -->
+        </div>
+
+      </div>
+    </main>
+
+    <!-- Three.js Setup -->
+    <script type="module">
+      import * as THREE from 'three';
+      const canvas = document.querySelector('#bg');
+      const scene = new THREE.Scene();
+      scene.fog = new THREE.FogExp2(0x000000, 0.001);
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      camera.position.z = 30;
+
+      const group = new THREE.Group();
+      scene.add(group);
+
+      const particleGeometry = new THREE.BufferGeometry();
+      const particleCount = 2000;
+      const posArray = new Float32Array(particleCount * 3);
+      for(let i=0; i < particleCount * 3; i++) {
+        posArray[i] = (Math.random() - 0.5) * 150;
+      }
+      particleGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+      const particleMaterial = new THREE.PointsMaterial({ size: 0.2, color: 0x8b5cf6, transparent: true, opacity: 0.8, blending: THREE.AdditiveBlending });
+      const particlesMesh = new THREE.Points(particleGeometry, particleMaterial);
+      group.add(particlesMesh);
+
+      const torus = new THREE.Mesh(
+        new THREE.TorusKnotGeometry(10, 3, 100, 16),
+        new THREE.MeshBasicMaterial({ color: 0x6d28d9, wireframe: true, transparent: true, opacity: 0.15 })
+      );
+      torus.position.set(20, 0, -20);
+      group.add(torus);
+
+      const torus2 = new THREE.Mesh(
+        new THREE.TorusKnotGeometry(8, 2, 80, 16),
+        new THREE.MeshBasicMaterial({ color: 0x4c1d95, wireframe: true, transparent: true, opacity: 0.1 })
+      );
+      torus2.position.set(-25, 10, -30);
+      group.add(torus2);
+
+      let mouseX = 0; let mouseY = 0; let targetX = 0; let targetY = 0;
+      const windowHalfX = window.innerWidth / 2; const windowHalfY = window.innerHeight / 2;
+      document.addEventListener('mousemove', (event) => { mouseX = (event.clientX - windowHalfX); mouseY = (event.clientY - windowHalfY); });
+
+      const clock = new THREE.Clock();
+      function animate() {
+        requestAnimationFrame(animate);
+        const elapsedTime = clock.getElapsedTime();
+        group.rotation.y = elapsedTime * 0.05;
+        torus.rotation.x += 0.005; torus.rotation.y += 0.005;
+        torus2.rotation.x -= 0.003; torus2.rotation.z += 0.004;
+        targetX = mouseX * 0.001; targetY = mouseY * 0.001;
+        particlesMesh.rotation.y += 0.05 * (targetX - particlesMesh.rotation.y);
+        particlesMesh.rotation.x += 0.05 * (targetY - particlesMesh.rotation.x);
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    </script>
+    
+    <!-- External JS Scripts -->
     <script src="./public/js/data.js"></script>
+    <!-- We inject some styles dynamically because the old JS uses inline styles or assumes classes for project cards.
+         The old JS likely injects `div`s with `class="p-4 bg-black border-solid border-1px"`. We can style them using CSS here if needed, 
+         or just let JS do it. -->
+    <style>
+      /* Override injected card styles to make them look like glass cards */
+      #container-flex > div {
+        background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%) !important;
+        backdrop-filter: blur(20px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-radius: 1.5rem !important;
+        padding: 1.5rem !important;
+        max-width: none !important;
+        min-width: 0 !important;
+        transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+      }
+      #container-flex > div:hover {
+        transform: translateY(-5px) !important;
+        box-shadow: 0 10px 30px -10px rgba(109, 40, 217, 0.5) !important;
+        border-color: rgba(109, 40, 217, 0.5) !important;
+      }
+      #container-flex h3 a {
+        font-family: 'Outfit', sans-serif !important;
+        font-weight: 700 !important;
+        color: white !important;
+        text-decoration: none !important;
+      }
+      #container-flex h3 a:hover {
+        color: #8b5cf6 !important;
+      }
+      #container-flex img {
+        border-radius: 0.75rem !important;
+        margin-top: 1rem !important;
+        width: 100% !important;
+        height: 200px !important;
+        object-fit: cover !important;
+      }
+    </style>
     <script src="./public/js/project.js"></script>
   </body>
 </html>

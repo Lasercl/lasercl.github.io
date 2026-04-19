@@ -1,268 +1,567 @@
-<!-- TODO 1: Create the HTML Boilerplate -->
-
-<!-- TODO 2: Add Your previous projects' HTML into the public folder -->
-
-<!-- TODO 3: Take screenshots of your project previews and add the images to the images folder -->
-
-<!-- TODO 4: Add titles/subtitles etc. -->
-
-<!-- TODO 5: Add a link to the project pages -->
-
-<!-- TODO 6: Add images to show the project previews
-HINT for TODO 6: You can use the height attribute set to 200 to make the image smaller:
-https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attr-height -->
-
-<!-- TODO 7: Add the Contact Me and About Me page links -->
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Moderustic:wght@300..800&display=swap"
-      rel="stylesheet"
-    />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="./public/css/MainPage.css" />
     <title>Laser Clauss L - Portfolio</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/c9663cd471.js" crossorigin="anonymous"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Outfit', 'sans-serif'],
+            },
+            colors: {
+              primary: '#6d28d9',
+              secondary: '#1e1b4b',
+            }
+          }
+        }
+      }
+    </script>
+
+    <!-- Custom Styles for Glassmorphism & Animations -->
+    <style>
+      body {
+        margin: 0;
+        overflow-x: hidden;
+        background-color: #000;
+        color: #fff;
+      }
+      #bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        width: 100vw;
+        height: 100vh;
+      }
+      .glass {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .glass-card {
+        background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 1.5rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      }
+      .glass-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px -10px rgba(109, 40, 217, 0.5);
+        border-color: rgba(109, 40, 217, 0.5);
+      }
+      
+      /* Glowing Text */
+      .glow-text {
+        text-shadow: 0 0 20px rgba(109, 40, 217, 0.8);
+      }
+      .glow-text-subtle {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+      }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #000;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #6d28d9;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #8b5cf6;
+      }
+    </style>
+
+    <!-- Three.js Import Map -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+      }
+    </script>
   </head>
-  <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
-        <a class="navbar-brand text-white" href="#">Portfolio</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="fa-solid fa-bars" style="color: #ffffff"></span>
+  <body class="antialiased selection:bg-primary selection:text-white">
+
+    <!-- Three.js Canvas -->
+    <canvas id="bg"></canvas>
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 glass transition-all duration-300" id="navbar">
+      <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <a href="#" class="text-2xl font-bold tracking-wider text-white glow-text">LCL</a>
+        
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="md:hidden text-white focus:outline-none">
+          <i class="fa-solid fa-bars text-2xl"></i>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link active text-white" aria-current="page" href="#"
-                >Home</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-white" id="aboutme" href="#container2"
-                >About me</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-white" href="./contact.html"
-                >Contact Me</a
-              >
-            </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle text-white"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Download
-              </a>
-              <ul class="dropdown-menu bg-black">
-                <li>
-                  <a
-                    class="dropdown-item text-white"
-                    href="./assets/pdf/CVNew2026.pdf"
-                    >My CV</a
-                  >
-                </li>
-                <!-- <li><hr class="dropdown-divider" style="border-color: ;" /></li> -->
-                <li>
-                  <a
-                    class="dropdown-item text-white"
-                    href="./assets/pdf/portfolio.pdf"
-                    >My Portfolio</a
-                  >
-                </li>
-              </ul>
-            </li>
-          </ul>
+
+        <!-- Desktop Links -->
+        <div class="hidden md:flex space-x-8 items-center">
+          <a href="#home" class="text-gray-300 hover:text-white transition-colors">Home</a>
+          <a href="#about" class="text-gray-300 hover:text-white transition-colors">About</a>
+          <a href="#skills" class="text-gray-300 hover:text-white transition-colors">Skills & Experience</a>
+          <a href="#projects" class="text-gray-300 hover:text-white transition-colors">Projects</a>
+          <a href="./contact.html" class="text-gray-300 hover:text-white transition-colors">Contact</a>
+          
+          <div class="relative group">
+            <button class="px-5 py-2.5 bg-primary/80 hover:bg-primary text-white rounded-full transition-all duration-300 flex items-center gap-2 backdrop-blur-md shadow-[0_0_15px_rgba(109,40,217,0.5)]">
+              <span>Resume</span> <i class="fa-solid fa-chevron-down text-xs"></i>
+            </button>
+            <div class="absolute right-0 mt-2 w-48 glass rounded-xl overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top shadow-2xl">
+              <a href="./assets/pdf/CVNew2026.pdf" class="block px-4 py-3 text-gray-200 hover:bg-white/10 hover:text-white transition-colors">My CV</a>
+              <a href="./assets/pdf/portfolio.pdf" class="block px-4 py-3 text-gray-200 hover:bg-white/10 hover:text-white transition-colors">My Portfolio</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="md:hidden hidden glass border-t border-white/10">
+        <div class="px-6 py-4 flex flex-col space-y-4">
+          <a href="#home" class="text-gray-300 hover:text-white">Home</a>
+          <a href="#about" class="text-gray-300 hover:text-white">About</a>
+          <a href="#skills" class="text-gray-300 hover:text-white">Skills & Experience</a>
+          <a href="#projects" class="text-gray-300 hover:text-white">Projects</a>
+          <a href="./contact.html" class="text-gray-300 hover:text-white">Contact</a>
+          <a href="./assets/pdf/CVNew2026.pdf" class="text-primary font-medium">Download CV</a>
         </div>
       </div>
     </nav>
-    <div id="profile">
-      <div>
-        <h1>Hi I am Laser Clauss Latupeirissa</h1>
-        <h2>I'm a Software engineering</h2>
-      </div>
-      <div id="profilephoto">
-        <img
-          src="./assets/images/foto profile.jpg"
-          height="200px"
-          alt="The person use glasses with white clothes"
-        />
-      </div>
-    </div>
-    <hr />
-    <div id="container">
-      <div id="character">
-        <h2>Character</h2>
-        <ul>
-          <li>Dicipline</li>
-          <li>Friendly</li>
-          <li>Patient</li>
-          <li>Humble</li>
-          <li>Deft</li>
-          <li>Learner</li>
-        </ul>
-      </div>
-      <div id="experience">
-        <h2>Experience</h2>
-        <ul>
-          <li>Secretary of BINUS Basketball Semarang (2022-2023)</li>
-          <li>Secretary of BINUS OK Kristen Semarang (2022-2023)</li>
-          <li>
-            Student Member of Skilvul Samsung bootcamp about Python Programming
-            (Feb 2024 - Maret 2024)
-          </li>
-          <li>Teaching Math in the Orphage (July 2023)</li>
-        </ul>
-      </div>
 
-      <div id="education">
-        <h2>Education</h2>
-        <ul>
-          <li>Loyola College High School (2019-2022)</li>
-          <li>Bina Nusantara University (2022-2026)</li>
-        </ul>
-      </div>
+    <!-- Main Content -->
+    <main class="relative z-10">
+      
+      <!-- Hero Section -->
+      <section id="home" class="min-h-screen flex items-center justify-center pt-20 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col-reverse md:flex-row items-center gap-12">
+          <div class="flex-1 text-center md:text-left space-y-6">
+            <p class="text-primary font-medium tracking-widest uppercase mb-2">Welcome to my universe</p>
+            <h1 class="text-5xl md:text-7xl font-extrabold leading-tight">
+              Hi, I'm <br/>
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-primary glow-text">Laser Clauss</span>
+            </h1>
+            <h2 class="text-2xl md:text-3xl text-gray-300 font-light">Software Engineering Student</h2>
+            <p class="text-gray-400 max-w-lg mx-auto md:mx-0 text-lg">
+              Passionate about creating modern, dynamic, and beautiful web experiences. Welcome to my personal 3D portfolio.
+            </p>
+            <div class="pt-4 flex flex-wrap justify-center md:justify-start gap-4">
+              <a href="#projects" class="px-8 py-3.5 bg-primary hover:bg-purple-600 text-white rounded-full font-medium transition-all shadow-[0_0_20px_rgba(109,40,217,0.4)] hover:shadow-[0_0_30px_rgba(109,40,217,0.6)] hover:-translate-y-1">
+                View My Work
+              </a>
+              <a href="#about" class="px-8 py-3.5 glass hover:bg-white/10 text-white rounded-full font-medium transition-all">
+                About Me
+              </a>
+            </div>
+          </div>
+          <div class="flex-1 flex justify-center">
+            <div class="relative w-64 h-64 md:w-80 md:h-80 group">
+              <div class="absolute inset-0 bg-gradient-to-tr from-primary to-purple-400 rounded-full blur-2xl opacity-40 group-hover:opacity-60 transition-opacity duration-500"></div>
+              <img src="./assets/images/foto profile.jpg" alt="Profile Picture" class="relative w-full h-full object-cover rounded-full border-2 border-white/20 shadow-2xl z-10 transition-transform duration-500 group-hover:scale-105" />
+            </div>
+          </div>
+        </div>
+      </section>
 
-      <div id="skill">
-        <h2>Skill</h2>
-        <ul>
-          <li>Intermediate HTML Language</li>
-          <li>Intermediate CSS Language</li>
-          <li>Intermediate C Language Programming</li>
-          <li>Intermediate Java Language Programming</li>
-          <li>Intermediate Ms. Word, Ms. Excel, Ms. Power Point</li>
-          <li>Intermediate Public Speaking</li>
-        </ul>
-      </div>
-    </div>
-    <div id="container2">
-      <svg
-        id="buttonback"
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        fill="currentColor"
-        class="bi bi-x"
-        viewBox="0 0 16 16"
-      >
-        <path
-          d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"
-        />
-      </svg>
-      <h1>About me</h1>
-      <p>
-        I My name is Laser Clauss Latupeirissa. Im the student from Bina
-        Nusantara University in Indonesia. I like to make something project
-        especially about Computer Science or Software engineering
-      </p>
-    </div>
-    <hr />
-    <div id="project">
-      <h2 class="m-5">My Project</h2>
-      <div id="container-flex">
-        <div
-          class="p-4"
-          id="movieproject"
-          onclick="window.location.href = './movie-ranking.html'"
-        >
-          <h3>
-            <a class="fs-5" href="./movie-ranking.html"
-              >Movie Ranking Project</a
-            >
-          </h3>
-          <img
-            src="./assets/images/movieranking.png"
-            height="200px"
-            alt="The highlight picture about my favorite film"
-          />
+      <!-- About Section -->
+      <section id="about" class="py-24 px-6 relative">
+        <div class="max-w-5xl mx-auto">
+          <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center glow-text-subtle">About Me</h2>
+          
+          <div class="glass-card p-8 md:p-12">
+            <p class="text-xl text-gray-300 leading-relaxed mb-10 text-center md:text-left">
+              My name is Laser Clauss Latupeirissa. I'm a student from Bina Nusantara University in Indonesia. 
+              I enjoy creating projects, especially related to Computer Science and Software Engineering. I strive to learn and build impactful digital solutions.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+              <!-- Character -->
+              <div>
+                <h3 class="text-2xl font-semibold mb-6 flex items-center gap-3 text-purple-300">
+                  <i class="fa-solid fa-user-astronaut"></i> Character
+                </h3>
+                <div class="flex flex-wrap gap-3">
+                  <span class="px-4 py-2 bg-white/5 rounded-full border border-white/10 hover:bg-white/10 transition-colors">Discipline</span>
+                  <span class="px-4 py-2 bg-white/5 rounded-full border border-white/10 hover:bg-white/10 transition-colors">Friendly</span>
+                  <span class="px-4 py-2 bg-white/5 rounded-full border border-white/10 hover:bg-white/10 transition-colors">Patient</span>
+                  <span class="px-4 py-2 bg-white/5 rounded-full border border-white/10 hover:bg-white/10 transition-colors">Humble</span>
+                  <span class="px-4 py-2 bg-white/5 rounded-full border border-white/10 hover:bg-white/10 transition-colors">Deft</span>
+                  <span class="px-4 py-2 bg-white/5 rounded-full border border-white/10 hover:bg-white/10 transition-colors">Learner</span>
+                </div>
+              </div>
+
+              <!-- Education -->
+              <div>
+                <h3 class="text-2xl font-semibold mb-6 flex items-center gap-3 text-purple-300">
+                  <i class="fa-solid fa-graduation-cap"></i> Education
+                </h3>
+                <div class="space-y-4">
+                  <div class="relative pl-6 border-l-2 border-primary/50">
+                    <div class="absolute w-3 h-3 bg-primary rounded-full -left-[7px] top-1.5 shadow-[0_0_10px_#6d28d9]"></div>
+                    <h4 class="text-lg font-medium">Bina Nusantara University</h4>
+                    <p class="text-gray-400 text-sm">2022 - 2026</p>
+                  </div>
+                  <div class="relative pl-6 border-l-2 border-primary/50">
+                    <div class="absolute w-3 h-3 bg-white/30 rounded-full -left-[7px] top-1.5"></div>
+                    <h4 class="text-lg font-medium text-gray-300">Loyola College High School</h4>
+                    <p class="text-gray-500 text-sm">2019 - 2022</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div
-          class="p-4"
-          id="birthdayproject"
-          onclick="window.location.href = './birthday-invite.html'"
-        >
-          <h3>
-            <a class="fs-5" href="./birthday-invite.html"
-              >Birthday Invite Project</a
-            >
-          </h3>
-          <img
-            src="./assets/images/mybirthday.png"
-            height="200px"
-            alt="The highlight about my birthday page"
-          />
+      </section>
+
+      <!-- Skills & Experience Section -->
+      <section id="skills" class="py-24 px-6 relative">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
+          
+          <!-- Experience -->
+          <div>
+            <h2 class="text-4xl font-bold mb-12 glow-text-subtle text-center lg:text-left">Experience</h2>
+            <div class="space-y-6">
+              <div class="glass-card p-6 group">
+                <h4 class="text-xl font-medium text-white mb-2 group-hover:text-primary transition-colors">Skilvul Samsung Bootcamp</h4>
+                <p class="text-purple-300 text-sm mb-3">Feb 2024 - Mar 2024</p>
+                <p class="text-gray-400">Student Member focusing on Python Programming.</p>
+              </div>
+              
+              <div class="glass-card p-6 group">
+                <h4 class="text-xl font-medium text-white mb-2 group-hover:text-primary transition-colors">BINUS Basketball Semarang</h4>
+                <p class="text-purple-300 text-sm mb-3">2022 - 2023</p>
+                <p class="text-gray-400">Served as the Secretary.</p>
+              </div>
+
+              <div class="glass-card p-6 group">
+                <h4 class="text-xl font-medium text-white mb-2 group-hover:text-primary transition-colors">BINUS OK Kristen Semarang</h4>
+                <p class="text-purple-300 text-sm mb-3">2022 - 2023</p>
+                <p class="text-gray-400">Served as the Secretary.</p>
+              </div>
+
+              <div class="glass-card p-6 group">
+                <h4 class="text-xl font-medium text-white mb-2 group-hover:text-primary transition-colors">Orphanage Volunteer</h4>
+                <p class="text-purple-300 text-sm mb-3">July 2023</p>
+                <p class="text-gray-400">Taught Mathematics to children in the orphanage.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Skills -->
+          <div>
+            <h2 class="text-4xl font-bold mb-12 glow-text-subtle text-center lg:text-left">Skills</h2>
+            <div class="glass-card p-8">
+              <div class="space-y-6">
+                
+                <div>
+                  <div class="flex justify-between mb-2">
+                    <span class="font-medium">HTML & CSS</span>
+                    <span class="text-primary">Intermediate</span>
+                  </div>
+                  <div class="w-full bg-white/10 rounded-full h-2.5">
+                    <div class="bg-gradient-to-r from-purple-600 to-primary h-2.5 rounded-full shadow-[0_0_10px_#6d28d9]" style="width: 75%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between mb-2">
+                    <span class="font-medium">C Programming</span>
+                    <span class="text-primary">Intermediate</span>
+                  </div>
+                  <div class="w-full bg-white/10 rounded-full h-2.5">
+                    <div class="bg-gradient-to-r from-purple-600 to-primary h-2.5 rounded-full" style="width: 65%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between mb-2">
+                    <span class="font-medium">Java Programming</span>
+                    <span class="text-primary">Intermediate</span>
+                  </div>
+                  <div class="w-full bg-white/10 rounded-full h-2.5">
+                    <div class="bg-gradient-to-r from-purple-600 to-primary h-2.5 rounded-full" style="width: 70%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between mb-2">
+                    <span class="font-medium">Ms. Office Suite</span>
+                    <span class="text-primary">Intermediate</span>
+                  </div>
+                  <div class="w-full bg-white/10 rounded-full h-2.5">
+                    <div class="bg-gradient-to-r from-purple-600 to-primary h-2.5 rounded-full" style="width: 80%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between mb-2">
+                    <span class="font-medium">Public Speaking</span>
+                    <span class="text-primary">Intermediate</span>
+                  </div>
+                  <div class="w-full bg-white/10 rounded-full h-2.5">
+                    <div class="bg-gradient-to-r from-purple-600 to-primary h-2.5 rounded-full" style="width: 75%"></div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
         </div>
-        <div
-          class="p-4"
-          id="movieproject"
-          onclick="window.location.href = './detailProject.html?id=2'"
-        >
-          <h3>
-            <a class="fs-5" href="./detailProject.html?id=2">Recurfit</a>
-          </h3>
-          <img
-            src="./assets/images/recurfit.png"
-            width="250px"
-            height="150px"
-            alt="The highlight picture about my favorite film"
-          />
+      </section>
+
+      <!-- Projects Section -->
+      <section id="projects" class="py-24 px-6 relative">
+        <div class="max-w-7xl mx-auto">
+          <div class="flex justify-between items-end mb-16">
+            <h2 class="text-4xl md:text-5xl font-bold glow-text-subtle">Featured Projects</h2>
+            <a href="./project.html" class="hidden md:inline-flex text-primary hover:text-purple-300 font-medium transition-colors items-center gap-2">
+              View All Projects <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            
+            <!-- Project 1 -->
+            <a href="./movie-ranking.html" class="glass-card group overflow-hidden flex flex-col cursor-pointer">
+              <div class="h-48 overflow-hidden relative">
+                <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors z-10 duration-300"></div>
+                <img src="./assets/images/movieranking.png" alt="Movie Ranking" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" />
+              </div>
+              <div class="p-6 flex-1 flex flex-col">
+                <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">Movie Ranking</h3>
+                <p class="text-sm text-gray-400 flex-1">A highlight collection of my favorite films.</p>
+              </div>
+            </a>
+
+            <!-- Project 2 -->
+            <a href="./birthday-invite.html" class="glass-card group overflow-hidden flex flex-col cursor-pointer">
+              <div class="h-48 overflow-hidden relative">
+                <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors z-10 duration-300"></div>
+                <img src="./assets/images/mybirthday.png" alt="Birthday Invite" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" />
+              </div>
+              <div class="p-6 flex-1 flex flex-col">
+                <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">Birthday Invite</h3>
+                <p class="text-sm text-gray-400 flex-1">A fun webpage created for a birthday invitation.</p>
+              </div>
+            </a>
+
+            <!-- Project 3 -->
+            <a href="./detailProject.html?id=2" class="glass-card group overflow-hidden flex flex-col cursor-pointer">
+              <div class="h-48 overflow-hidden relative bg-black/50 flex items-center justify-center">
+                <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors z-10 duration-300"></div>
+                <img src="./assets/images/recurfit.png" alt="Recurfit" class="w-full h-full object-contain p-4 transform group-hover:scale-110 transition-transform duration-700" />
+              </div>
+              <div class="p-6 flex-1 flex flex-col">
+                <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">Recurfit</h3>
+                <p class="text-sm text-gray-400 flex-1">A comprehensive project demonstrating software principles.</p>
+              </div>
+            </a>
+
+            <!-- Project 4 -->
+            <a href="./detailProject.html?id=4" class="glass-card group overflow-hidden flex flex-col cursor-pointer">
+              <div class="h-48 overflow-hidden relative bg-black/50 flex items-center justify-center">
+                <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors z-10 duration-300"></div>
+                <img src="./assets/images/makeupzz.png" alt="MakeUpzzz" class="w-full h-full object-contain p-4 transform group-hover:scale-110 transition-transform duration-700" />
+              </div>
+              <div class="p-6 flex-1 flex flex-col">
+                <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">MakeUpzzz Back End</h3>
+                <p class="text-sm text-gray-400 flex-1">Backend implementation and logic for the MakeUpzzz platform.</p>
+              </div>
+            </a>
+
+          </div>
+          
+          <div class="mt-12 text-center md:hidden">
+            <a href="./project.html" class="inline-flex text-primary hover:text-purple-300 font-medium transition-colors items-center gap-2">
+              View All Projects <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
         </div>
-        <div
-          class="p-4"
-          id="movieproject"
-          onclick="window.location.href = './detailProject.html?id=4'"
-        >
-          <h3>
-            <a class="fs-5" href="./detailProject.html?id=4"
-              >MakeUpzzz Back End</a
-            >
-          </h3>
-          <img
-            src="./assets/images/makeupzz.png"
-            width="250px"
-            height="150px"
-            alt="The highlight picture about my favorite film"
-          />
+      </section>
+
+      <!-- Footer -->
+      <footer class="glass border-t border-white/10 py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p class="text-gray-400 text-sm">© 2026 Laser Clauss Latupeirissa. All rights reserved.</p>
+          <div class="flex space-x-6">
+            <a href="./contact.html" class="text-gray-400 hover:text-white transition-colors">
+              <i class="fa-solid fa-envelope text-xl"></i>
+            </a>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="more">
-      <a href="./project.html">More Projects</a>
-    </div>
-    <!-- <div id="navbottom">
-      <a href="#" id="aboutme">About Me</a>
-      <a href="./public/contact.html">Contact Me</a>
-    </div> -->
-    <script src="./public/js/MainPage.js"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://kit.fontawesome.com/c9663cd471.js"
-      crossorigin="anonymous"
-    ></script>
+      </footer>
+
+    </main>
+
+    <!-- Three.js Setup and Interactions -->
+    <script type="module">
+      import * as THREE from 'three';
+
+      // Scene Setup
+      const canvas = document.querySelector('#bg');
+      const scene = new THREE.Scene();
+      // Optional: fog to blend objects into distance
+      scene.fog = new THREE.FogExp2(0x000000, 0.001);
+
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({
+        canvas: canvas,
+        alpha: true,
+        antialias: true
+      });
+
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      camera.position.z = 30;
+
+      // Create abstract 3D Background Objects (e.g. wireframe particles or toruses)
+      const group = new THREE.Group();
+      scene.add(group);
+
+      // Add thousands of stars/particles
+      const particleGeometry = new THREE.BufferGeometry();
+      const particleCount = 2000;
+      const posArray = new Float32Array(particleCount * 3);
+
+      for(let i=0; i < particleCount * 3; i++) {
+        // spread particles out
+        posArray[i] = (Math.random() - 0.5) * 150;
+      }
+      particleGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+      // Custom texture for particles
+      const particleMaterial = new THREE.PointsMaterial({
+        size: 0.2,
+        color: 0x8b5cf6, // Tailwind purple-500
+        transparent: true,
+        opacity: 0.8,
+        blending: THREE.AdditiveBlending
+      });
+      const particlesMesh = new THREE.Points(particleGeometry, particleMaterial);
+      group.add(particlesMesh);
+
+      // Add a cool rotating TorusKnot
+      const torusGeometry = new THREE.TorusKnotGeometry(10, 3, 100, 16);
+      const torusMaterial = new THREE.MeshBasicMaterial({ 
+        color: 0x6d28d9, // primary color
+        wireframe: true,
+        transparent: true,
+        opacity: 0.15
+      });
+      const torus = new THREE.Mesh(torusGeometry, torusMaterial);
+      torus.position.set(20, 0, -20);
+      group.add(torus);
+
+      const torus2 = new THREE.Mesh(
+        new THREE.TorusKnotGeometry(8, 2, 80, 16),
+        new THREE.MeshBasicMaterial({ color: 0x4c1d95, wireframe: true, transparent: true, opacity: 0.1 })
+      );
+      torus2.position.set(-25, 10, -30);
+      group.add(torus2);
+
+      // Mouse Interaction
+      let mouseX = 0;
+      let mouseY = 0;
+      let targetX = 0;
+      let targetY = 0;
+      const windowHalfX = window.innerWidth / 2;
+      const windowHalfY = window.innerHeight / 2;
+
+      document.addEventListener('mousemove', (event) => {
+        mouseX = (event.clientX - windowHalfX);
+        mouseY = (event.clientY - windowHalfY);
+      });
+
+      // Scroll Interaction
+      let scrollY = window.scrollY;
+      window.addEventListener('scroll', () => {
+        scrollY = window.scrollY;
+      });
+
+      // Animation Loop
+      const clock = new THREE.Clock();
+
+      function animate() {
+        requestAnimationFrame(animate);
+        const elapsedTime = clock.getElapsedTime();
+
+        // Rotate whole group slowly
+        group.rotation.y = elapsedTime * 0.05;
+        
+        // Rotate specific objects
+        torus.rotation.x += 0.005;
+        torus.rotation.y += 0.005;
+        torus2.rotation.x -= 0.003;
+        torus2.rotation.z += 0.004;
+
+        // Smooth mouse follow for particles
+        targetX = mouseX * 0.001;
+        targetY = mouseY * 0.001;
+        
+        particlesMesh.rotation.y += 0.05 * (targetX - particlesMesh.rotation.y);
+        particlesMesh.rotation.x += 0.05 * (targetY - particlesMesh.rotation.x);
+
+        // Move camera based on scroll
+        camera.position.y = -scrollY * 0.02;
+        // subtle bobbing effect
+        camera.position.x = Math.sin(elapsedTime * 0.5) * 2;
+
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      // Handle Resize
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    </script>
+
+    <!-- UI Scripts -->
+    <script>
+      // Mobile Menu Toggle
+      const btn = document.getElementById('mobile-menu-btn');
+      const menu = document.getElementById('mobile-menu');
+
+      btn.addEventListener('click', () => {
+        menu.classList.toggle('hidden');
+      });
+
+      // Navbar scroll effect
+      const navbar = document.getElementById('navbar');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          navbar.classList.add('bg-black/40', 'backdrop-blur-xl', 'border-b', 'border-white/10');
+          navbar.classList.remove('py-4');
+          navbar.classList.add('py-2');
+        } else {
+          navbar.classList.remove('bg-black/40', 'backdrop-blur-xl', 'border-b', 'border-white/10');
+          navbar.classList.remove('py-2');
+          navbar.classList.add('py-4');
+        }
+      });
+    </script>
   </body>
 </html>

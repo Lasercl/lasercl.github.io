@@ -1,43 +1,199 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    />
-    <link rel="stylesheet" href="./public/css/contact.css" />
+    <title>Contact Me - Laser Clauss L</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Moderustic:wght@300..800&display=swap"
-      rel="stylesheet"
-    />
-    <title>Contactme</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    
+    <script src="https://kit.fontawesome.com/c9663cd471.js" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: { sans: ['Outfit', 'sans-serif'] },
+            colors: { primary: '#6d28d9', secondary: '#1e1b4b' }
+          }
+        }
+      }
+    </script>
+
+    <style>
+      body { margin: 0; overflow-x: hidden; background-color: #000; color: #fff; }
+      #bg { position: fixed; top: 0; left: 0; z-index: -1; width: 100vw; height: 100vh; }
+      .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); }
+      .glass-card { background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 1.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
+      .glass-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px -10px rgba(109, 40, 217, 0.5); border-color: rgba(109, 40, 217, 0.5); }
+      .glow-text { text-shadow: 0 0 20px rgba(109, 40, 217, 0.8); }
+      .glow-text-subtle { text-shadow: 0 0 10px rgba(255, 255, 255, 0.3); }
+      ::-webkit-scrollbar { width: 8px; }
+      ::-webkit-scrollbar-track { background: #000; }
+      ::-webkit-scrollbar-thumb { background: #6d28d9; border-radius: 4px; }
+      ::-webkit-scrollbar-thumb:hover { background: #8b5cf6; }
+    </style>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+      }
+    </script>
   </head>
-  <body>
-    <h1>Contact Me</h1>
-    <div class="container">
-      <div class="wrapper">
-        <a
-          href="https://www.instagram.com/laser_cl?igsh=MTU0YzV3YzNxeGxiNg=="
-          class="icon"
-          ><i class="fa-brands fa-instagram"></i
-        ></a>
-        <a
-          href="https://www.linkedin.com/in/laser-clauss-latupeirissa-6a4a3829a/"
-          class="icon"
-          ><i class="fa-brands fa-linkedin-in"></i
-        ></a>
-        <a href="#" class="icon"><i class="fa-brands fa-youtube"></i></a>
-        <a href="https://wa.me/6282134361144" class="icon"
-          ><i class="fa-brands fa-whatsapp"></i
-        ></a>
-        <a href="https://github.com/Lasercl" class="icon"
-          ><i class="fa-brands fa-github"></i
-        ></a>
+  <body class="antialiased selection:bg-primary selection:text-white flex flex-col min-h-screen">
+
+    <canvas id="bg"></canvas>
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 glass transition-all duration-300" id="navbar">
+      <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <a href="./index.html" class="text-2xl font-bold tracking-wider text-white glow-text">LCL</a>
+        <button id="mobile-menu-btn" class="md:hidden text-white focus:outline-none">
+          <i class="fa-solid fa-bars text-2xl"></i>
+        </button>
+        <div class="hidden md:flex space-x-8 items-center">
+          <a href="./index.html" class="text-gray-300 hover:text-white transition-colors">Home</a>
+          <a href="./index.html#about" class="text-gray-300 hover:text-white transition-colors">About</a>
+          <a href="./index.html#skills" class="text-gray-300 hover:text-white transition-colors">Skills</a>
+          <a href="./project.html" class="text-gray-300 hover:text-white transition-colors">Projects</a>
+          <a href="./contact.html" class="text-white font-medium transition-colors">Contact</a>
+        </div>
       </div>
-    </div>
+      <div id="mobile-menu" class="md:hidden hidden glass border-t border-white/10">
+        <div class="px-6 py-4 flex flex-col space-y-4">
+          <a href="./index.html" class="text-gray-300 hover:text-white">Home</a>
+          <a href="./project.html" class="text-gray-300 hover:text-white">Projects</a>
+          <a href="./contact.html" class="text-white">Contact</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="relative z-10 flex-1 flex items-center justify-center pt-24 px-6 pb-12">
+      <div class="max-w-3xl w-full text-center">
+        <h1 class="text-5xl md:text-6xl font-bold mb-6 glow-text">Get In Touch</h1>
+        <p class="text-xl text-gray-300 mb-12">I'd love to hear from you. Whether you have a question or just want to say hi, feel free to drop a message!</p>
+        
+        <div class="glass-card p-10 md:p-16 flex flex-wrap justify-center gap-8">
+          <a href="https://www.instagram.com/laser_cl?igsh=MTU0YzV3YzNxeGxiNg==" class="group flex flex-col items-center gap-3 transition-transform hover:scale-110">
+            <div class="w-16 h-16 rounded-full glass flex items-center justify-center text-3xl text-gray-300 group-hover:text-pink-500 group-hover:bg-white/10 transition-all duration-300 shadow-[0_0_15px_rgba(255,255,255,0.05)] group-hover:shadow-[0_0_25px_rgba(236,72,153,0.5)]">
+              <i class="fa-brands fa-instagram"></i>
+            </div>
+            <span class="text-sm font-medium text-gray-400 group-hover:text-pink-400 transition-colors">Instagram</span>
+          </a>
+
+          <a href="https://www.linkedin.com/in/laser-clauss-latupeirissa-6a4a3829a/" class="group flex flex-col items-center gap-3 transition-transform hover:scale-110">
+            <div class="w-16 h-16 rounded-full glass flex items-center justify-center text-3xl text-gray-300 group-hover:text-blue-500 group-hover:bg-white/10 transition-all duration-300 shadow-[0_0_15px_rgba(255,255,255,0.05)] group-hover:shadow-[0_0_25px_rgba(59,130,246,0.5)]">
+              <i class="fa-brands fa-linkedin-in"></i>
+            </div>
+            <span class="text-sm font-medium text-gray-400 group-hover:text-blue-400 transition-colors">LinkedIn</span>
+          </a>
+
+          <a href="#" class="group flex flex-col items-center gap-3 transition-transform hover:scale-110">
+            <div class="w-16 h-16 rounded-full glass flex items-center justify-center text-3xl text-gray-300 group-hover:text-red-500 group-hover:bg-white/10 transition-all duration-300 shadow-[0_0_15px_rgba(255,255,255,0.05)] group-hover:shadow-[0_0_25px_rgba(239,68,68,0.5)]">
+              <i class="fa-brands fa-youtube"></i>
+            </div>
+            <span class="text-sm font-medium text-gray-400 group-hover:text-red-400 transition-colors">YouTube</span>
+          </a>
+
+          <a href="https://wa.me/6282134361144" class="group flex flex-col items-center gap-3 transition-transform hover:scale-110">
+            <div class="w-16 h-16 rounded-full glass flex items-center justify-center text-3xl text-gray-300 group-hover:text-green-500 group-hover:bg-white/10 transition-all duration-300 shadow-[0_0_15px_rgba(255,255,255,0.05)] group-hover:shadow-[0_0_25px_rgba(34,197,94,0.5)]">
+              <i class="fa-brands fa-whatsapp"></i>
+            </div>
+            <span class="text-sm font-medium text-gray-400 group-hover:text-green-400 transition-colors">WhatsApp</span>
+          </a>
+
+          <a href="https://github.com/Lasercl" class="group flex flex-col items-center gap-3 transition-transform hover:scale-110">
+            <div class="w-16 h-16 rounded-full glass flex items-center justify-center text-3xl text-gray-300 group-hover:text-white group-hover:bg-white/10 transition-all duration-300 shadow-[0_0_15px_rgba(255,255,255,0.05)] group-hover:shadow-[0_0_25px_rgba(255,255,255,0.5)]">
+              <i class="fa-brands fa-github"></i>
+            </div>
+            <span class="text-sm font-medium text-gray-400 group-hover:text-white transition-colors">GitHub</span>
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass border-t border-white/10 py-8 relative z-10 w-full mt-auto">
+      <div class="max-w-7xl mx-auto px-6 text-center">
+        <p class="text-gray-400 text-sm">© 2026 Laser Clauss Latupeirissa. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Three.js Setup -->
+    <script type="module">
+      import * as THREE from 'three';
+      const canvas = document.querySelector('#bg');
+      const scene = new THREE.Scene();
+      scene.fog = new THREE.FogExp2(0x000000, 0.001);
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      camera.position.z = 30;
+
+      const group = new THREE.Group();
+      scene.add(group);
+
+      const particleGeometry = new THREE.BufferGeometry();
+      const particleCount = 2000;
+      const posArray = new Float32Array(particleCount * 3);
+      for(let i=0; i < particleCount * 3; i++) {
+        posArray[i] = (Math.random() - 0.5) * 150;
+      }
+      particleGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+      const particleMaterial = new THREE.PointsMaterial({ size: 0.2, color: 0x8b5cf6, transparent: true, opacity: 0.8, blending: THREE.AdditiveBlending });
+      const particlesMesh = new THREE.Points(particleGeometry, particleMaterial);
+      group.add(particlesMesh);
+
+      const torus = new THREE.Mesh(
+        new THREE.TorusKnotGeometry(10, 3, 100, 16),
+        new THREE.MeshBasicMaterial({ color: 0x6d28d9, wireframe: true, transparent: true, opacity: 0.15 })
+      );
+      torus.position.set(20, 0, -20);
+      group.add(torus);
+
+      const torus2 = new THREE.Mesh(
+        new THREE.TorusKnotGeometry(8, 2, 80, 16),
+        new THREE.MeshBasicMaterial({ color: 0x4c1d95, wireframe: true, transparent: true, opacity: 0.1 })
+      );
+      torus2.position.set(-25, 10, -30);
+      group.add(torus2);
+
+      let mouseX = 0; let mouseY = 0; let targetX = 0; let targetY = 0;
+      const windowHalfX = window.innerWidth / 2; const windowHalfY = window.innerHeight / 2;
+      document.addEventListener('mousemove', (event) => { mouseX = (event.clientX - windowHalfX); mouseY = (event.clientY - windowHalfY); });
+
+      const clock = new THREE.Clock();
+      function animate() {
+        requestAnimationFrame(animate);
+        const elapsedTime = clock.getElapsedTime();
+        group.rotation.y = elapsedTime * 0.05;
+        torus.rotation.x += 0.005; torus.rotation.y += 0.005;
+        torus2.rotation.x -= 0.003; torus2.rotation.z += 0.004;
+        targetX = mouseX * 0.001; targetY = mouseY * 0.001;
+        particlesMesh.rotation.y += 0.05 * (targetX - particlesMesh.rotation.y);
+        particlesMesh.rotation.x += 0.05 * (targetY - particlesMesh.rotation.x);
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    </script>
+    <script>
+      const btn = document.getElementById('mobile-menu-btn');
+      const menu = document.getElementById('mobile-menu');
+      btn.addEventListener('click', () => { menu.classList.toggle('hidden'); });
+    </script>
   </body>
 </html>
