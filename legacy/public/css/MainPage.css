@@ -1,0 +1,215 @@
+/* * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+} */
+#profile{
+    display:flex;
+    gap: 20px;
+    /* flex-wrap: wrap; */
+     flex-wrap: wrap;
+    justify-content: center;
+    color: white;
+    
+    padding: 30px;
+    margin-bottom: 20px;
+} 
+
+.bg-body-tertiary {
+    --bs-bg-opacity: 1;
+    background-color:rgba(0, 0, 0, 0.27) !important;
+    /* color: white !important; */
+}
+
+
+body{
+    text-align: center;
+    background:linear-gradient(to right,purple,black);
+    /* background-image:url(../assets/images/wallpaper\ galaxy.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;  */
+    /* display:flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column; */
+    background-position: center; 
+    margin: 0px;
+    padding: 0px;
+    font-family: "Moderustic", sans-serif;
+
+}
+.flex-detail-project{
+    display: flex;
+    /* flex-wrap: wrap; */
+    flex-direction: row;
+    text-align: left;
+    justify-content: flex-start;
+    width: 85%;
+    margin-left: auto;
+    color: azure;
+    margin-right: auto;
+    align-items: flex-start;
+    
+}
+#container{
+    display: grid;
+    grid-template-columns: 400px 400px;
+    grid-template-rows: 1fr 1fr;
+    width: 1020px;
+    gap: 200px;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; /* Efek ease-in-out */
+    
+
+}
+#container2{
+    display: none;
+}
+/* #continer2>svg{
+    align-self: flex-end;
+} */
+#container.hidden {
+    opacity: 0;
+    transform: scale(0.9);
+    color: red; /* Ubah warna teks saat menghilang */
+    background-color: rgba(0, 0, 0, 0.379); /* Ubah warna latar belakang saat menghilang */
+   
+}
+#container ul{
+    text-align: left;
+}
+#container-flex{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+
+}
+#container-flex>div{
+    cursor: pointer;
+    border:solid 1px;
+    padding:20px;
+    border-radius: 20px;
+    background-color: black;
+    flex: 1;
+    border: 0;
+    /* font-size: smaller; !important; */
+    max-width: 300px;
+    min-width: 300px;
+}
+#project{
+    background:linear-gradient(to top,rgb(88, 30, 170),rgba(0, 0, 0, 0));
+    color: white;
+    padding: 20px;
+
+}
+#otherProjectDetail>div{
+     cursor: pointer;
+    border:solid 1px;
+    padding:20px;
+    border-radius: 20px;
+    background-color: black;
+    flex: 1;
+    border: 0;
+    /* font-size: smaller; !important; */
+    max-width: 300px;
+    min-width: 300px;
+}
+#otherProjectDetail{
+    margin-bottom: 2rem;
+}
+#container>div{
+    border: solid 1px;
+    background-color: rgba(0, 0, 0, 0.356);
+    border-radius: 10px;
+    color: white;
+    padding: 20px;
+    border: 0px;
+    font-family: "Moderustic", sans-serif;
+}
+#navbottom{
+    background: linear-gradient(to bottom,rgb(88, 30, 170),rgb(0, 0, 0));
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+#navbottom>a{
+    text-decoration: none;
+    color: aliceblue;
+    font-size: 10px;
+    padding: 5px;
+    border-radius: 2px;
+}
+#navbottom>a:hover{
+    background-color: rgba(72, 0, 240, 0.356);
+}
+#buttonback{
+    cursor: pointer;
+}
+#profilephoto>img{
+    border-radius: 20px;
+}
+
+.more{
+    background: linear-gradient(to bottom,rgb(88, 30, 170),rgb(0, 0, 0));
+
+    /* margin-left: auto;
+    margin-right: auto; */
+    padding-top: 20px;
+    padding-bottom: 5rem;
+    /* width: 20%; */
+}
+.more>a{
+    background: rgba(0, 0, 0, 0.5);
+    padding: 13px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: antiquewhite;
+    font-family: "Moderustic", sans-serif;
+
+}
+#projects{
+    background-color: rgba(0, 0, 0, 0.2); 
+    color: #ffffff; 
+}
+#projects option{
+    background-color: rgba(0, 0, 0, 0.7); 
+    color: #ffffff; 
+}
+@media (max-width:1115px){
+    #container{
+        font-size: 10px;
+        width: 900px;
+        gap: 100px;
+
+    }
+
+}
+@media (max-width:951px){
+    #container{
+        font-size: 10px;
+        width: 500px;
+        gap: 100px;
+        grid-template-columns: 200px 200px;
+
+    }
+    #container>div{
+        padding: 10px;
+
+    }
+
+}
+@media(max-width:593px){
+    #container{
+        font-size: 10px;
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: column;
+        width: 300px;
+    }
+}

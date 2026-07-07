@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #6d28d9;
+  --color-secondary: #1e1b4b;
+  --font-sans: "Outfit", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-black text-white antialiased;
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #000;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #6d28d9;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #8b5cf6;
+  }
+}
+
+@layer components {
+  .glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-card {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  .glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px -10px rgba(109, 40, 217, 0.5);
+    border-color: rgba(109, 40, 217, 0.5);
+  }
+
+  .glow-text {
+    text-shadow: 0 0 20px rgba(109, 40, 217, 0.8);
+  }
+  .glow-text-subtle {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  }
+}
