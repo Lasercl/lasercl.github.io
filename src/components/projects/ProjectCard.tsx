@@ -14,9 +14,13 @@ export default function ProjectCard({ project }: { project: Project }) {
           alt={project.title}
           className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
         />
+        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/70 to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <span className="absolute bottom-3 right-4 z-20 inline-flex items-center gap-2 text-sm font-medium text-white translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+          View project <i className="fa-solid fa-arrow-right text-xs" />
+        </span>
       </div>
       <div className="p-6 flex-1 flex flex-col">
-        <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
+        <h3 className="text-xl font-bold mb-2 group-hover:text-purple-300 transition-colors">
           {project.title}
         </h3>
         <p className="text-sm text-gray-400 flex-1 line-clamp-3">{project.details}</p>
@@ -24,7 +28,7 @@ export default function ProjectCard({ project }: { project: Project }) {
           {project.category.split(",").map((c) => (
             <span
               key={c}
-              className="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10 text-purple-300"
+              className="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10 text-purple-300 group-hover:border-primary/40 transition-colors"
             >
               {c.trim()}
             </span>

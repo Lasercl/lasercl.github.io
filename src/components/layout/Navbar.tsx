@@ -22,8 +22,13 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <Link to="/#home" className="text-2xl font-bold tracking-wider text-white glow-text">
-          LCL
+        <Link to="/#home" className="flex items-center gap-3 group">
+          <span className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-indigo-600 flex items-center justify-center text-sm font-extrabold shadow-[0_0_15px_rgba(109,40,217,0.6)] group-hover:shadow-[0_0_25px_rgba(109,40,217,0.9)] transition-shadow">
+            LC
+          </span>
+          <span className="text-xl font-bold tracking-wider text-white glow-text hidden sm:inline">
+            Laser Clauss
+          </span>
         </Link>
 
         <button
@@ -36,13 +41,29 @@ export default function Navbar() {
 
         <div className="hidden md:flex space-x-8 items-center">
           {sectionLinks.map((link) => (
-            <Link key={link.href} to={link.href} className="text-gray-300 hover:text-white transition-colors">
+            <Link
+              key={link.href}
+              to={link.href}
+              className="relative text-gray-300 hover:text-white transition-colors after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-gradient-to-r after:from-primary after:to-indigo-400 hover:after:w-full after:transition-all after:duration-300"
+            >
               {link.label}
             </Link>
           ))}
-          <Link to="/contact" className="text-gray-300 hover:text-white transition-colors">
+          <Link
+            to="/contact"
+            className="relative text-gray-300 hover:text-white transition-colors after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-gradient-to-r after:from-primary after:to-indigo-400 hover:after:w-full after:transition-all after:duration-300"
+          >
             Contact
           </Link>
+          <a
+            href="https://github.com/Lasercl"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="GitHub"
+            className="text-gray-300 hover:text-white transition-colors text-xl"
+          >
+            <i className="fa-brands fa-github" />
+          </a>
 
           <div className="relative group">
             <button className="px-5 py-2.5 bg-primary/80 hover:bg-primary text-white rounded-full transition-all duration-300 flex items-center gap-2 backdrop-blur-md shadow-[0_0_15px_rgba(109,40,217,0.5)]">
