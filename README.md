@@ -85,4 +85,4 @@ Viewpoints (camera position, orbit target, chip label, caption, CTA) live in `sr
 
 ## Legacy site
 
-The original no-build, multi-page static HTML/Tailwind-CDN version of this portfolio is preserved under `legacy/`. It is not part of the build; see `MIGRATION_PLAN.md` for the full migration plan and `.docs/` for design documentation (e.g. the interactive 3D hero redesign).
+The original no-build, multi-page static HTML/Tailwind-CDN version of this portfolio is preserved under `legacy/`. It is not part of the build; see `MIGRATION_PLAN.md` for the full migration plan and `.docs/` for design documentation (e.g. the interactive 3D hero redesign)..
